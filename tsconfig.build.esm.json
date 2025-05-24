@@ -1,0 +1,16 @@
+/**
+ * TypeScript configuration
+ * @see https://www.typescriptlang.org/tsconfig
+ * @see https://www.typescriptlang.org/tsconfig#compiler-options
+ * @see https://aka.ms/tsconfig
+ */
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"module": "ESNext",
+		"rootDir": "src",
+		"outDir": "builds/esm"
+	},
+	"include": ["src", "src/**/*.json", "src/**/*.jsonc", "src/**/*.json5"]
+}

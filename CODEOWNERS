@@ -1,0 +1,11 @@
+# This is a CODEOWNERS file.
+# Lines starting with '#' are comments.
+# Each line is a file pattern followed by one or more owners.
+
+# Set the default owner for everything in the repo.
+* @ravikatha
+
+# You can also specify ownership for specific directories or files.
+# For example:
+# /docs/ @ravikatha
+# /src/ @ravikatha

@@ -1,0 +1,11 @@
+{
+	"$schema": "https://turborepo.com/schema.json",
+	"extends": ["//"],
+	// https://turborepo.com/docs/reference/configuration
+	"tasks": {
+		"publish-npm": {
+			"dependsOn": ["^publish", "build"],
+			"inputs": ["src/**/*.*", "package.json", "README.md", "CODEOWNERS", "LICENSE", "gulp/"]
+		}
+	}
+}

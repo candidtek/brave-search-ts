@@ -1,0 +1,108 @@
+{
+	"name": "brave-search-ts",
+	"description": "Typescript definitions for Brave Search API",
+	"version": "0.0.1",
+	"license": "MIT",
+	"author": {
+		"name": "Ravi Kiran Katha"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/candidtek/brave-search-ts.git"
+	},
+	"bugs": {
+		"url": "https://github.com/candidtek/brave-search-ts/issues"
+	},
+	"packageManager": "pnpm@10.11.0",
+	"engines": {
+		"node": ">=22"
+	},
+	"keywords": [
+		"brave search",
+		"brave search api",
+		"brave search types",
+		"brave search typings",
+		"brave search api types",
+		"brave search api typings",
+		"brave search typescript types",
+		"brave search typescript typings",
+		"brave search api typescript types",
+		"brave search api typescript typings"
+	],
+	"type": "module",
+	"module": "./builds/esm/index.js",
+	"main": "./builds/cjs/index.js",
+	"types": "./builds/cjs/index.d.ts",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./builds/esm/index.d.ts",
+				"default": "./builds/esm/index.js"
+			},
+			"require": {
+				"types": "./builds/cjs/index.d.ts",
+				"default": "./builds/cjs/index.js"
+			}
+		},
+		"./side-effects": {
+			"import": {
+				"types": "./builds/esm/side-effects/index.d.ts",
+				"default": "./builds/esm/side-effects/index.js"
+			},
+			"require": {
+				"types": "./builds/cjs/side-effects/index.d.ts",
+				"default": "./builds/cjs/side-effects/index.js"
+			}
+		}
+	},
+	"files": [
+		"README.md",
+		"LICENSE",
+		"CODEOWNERS",
+		"package.json",
+		"builds/**/*"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"preinstall": "npx only-allow pnpm",
+		"update-packages": "ncu -p pnpm -u --color --target @latest",
+		"format": "prettier --write \"**/*.{ts,cts,mts,js,cjs,mjs,json,jsonc,json5,tsx,ctsx,mtsx,jsx,cjsx,mjsx,d.ts,d.cts,d.mts,d.tsx,d.ctsx,d.mtsx,d.jsx,d.cjsx,d.mjsx,html,css,scss,sass,yml,yaml}\"",
+		"clean": "rimraf -g builds *.tsbuildinfo",
+		"tscheck": "tsc -p tsconfig.build.esm.json --noEmit",
+		"build:esm:raw": "tsc -p tsconfig.build.esm.json",
+		"build:cjs:raw": "tsc -p tsconfig.build.cjs.json",
+		"build:esm": "gulp buildEsm",
+		"build:cjs": "gulp buildCjs",
+		"build": "gulp build",
+		"t-build": "turbo build",
+		"publish-npm": "gulp publishToNpm",
+		"t-publish-npm": "turbo publish-npm"
+	},
+	"devDependencies": {
+		"@ianvs/prettier-plugin-sort-imports": "^4.4.1",
+		"@types/gulp": "^4.0.17",
+		"@types/gulp-json-editor": "^2.2.36",
+		"@types/node": "^22.15.21",
+		"@types/require-dir": "^1.0.4",
+		"@types/semver": "^7.7.0",
+		"@types/undertaker": "^1.2.11",
+		"deepmerge-ts": "^7.1.5",
+		"find-up": "^7.0.0",
+		"globby": "^14.1.0",
+		"gulp": "^5.0.0",
+		"gulp-json-editor": "^2.6.0",
+		"jsonc-parser": "^3.3.1",
+		"npm-check-updates": "^18.0.1",
+		"prettier": "^3.5.3",
+		"require-dir": "^1.2.0",
+		"rimraf": "^6.0.1",
+		"semver": "^7.7.2",
+		"ts-morph": "^26.0.0",
+		"ts-node": "^10.9.2",
+		"tslib": "^2.8.1",
+		"type-fest": "^4.41.0",
+		"typescript": "^5.8.3"
+	}
+}

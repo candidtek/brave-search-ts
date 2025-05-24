@@ -1,0 +1,122 @@
+{
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "never",
+		"source.organizeImports": "never",
+		"source.sortImports": "always"
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.detectIndentation": false,
+	"editor.formatOnSave": true,
+	"editor.insertSpaces": false,
+	"editor.linkedEditing": true,
+	"eslint.useESLintClass": true,
+	"eslint.useFlatConfig": true,
+	"eslint.workingDirectories": [
+		{
+			"mode": "auto"
+		}
+	],
+	"explorer.fileNesting.enabled": false,
+	"files.associations": {
+		"tsconfig.*.json": "jsonc",
+		"tsconfig.json": "jsonc"
+	},
+	"files.exclude": {
+		"**/*.tsbuildinfo": true,
+		"**/.DS_Store": true,
+		"**/.git": true,
+		"**/.hg": true,
+		"**/.svn": true,
+		"**/.turbo": true,
+		"**/Thumbs.db": true,
+		"**/dist": true,
+		"**/eslint.config.bundled*": true,
+		"**/eslint.configs.json": true,
+		"**/node_modules": true,
+		"**/pnpm-lock.yaml": true,
+		"builds": true
+	},
+	"html.format.indentInnerHtml": true,
+	"html.format.maxPreserveNewLines": 2,
+	"javascript.preferences.importModuleSpecifier": "relative",
+	"javascript.preferences.importModuleSpecifierEnding": "minimal",
+	"javascript.suggest.autoImports": true,
+	"json.schemas": [
+		{
+			"fileMatch": ["typedoc.json"],
+			"url": "https://typedoc.org/schema.json"
+		},
+		{
+			"fileMatch": [".prettierrc", ".prettierrc*.json"],
+			"url": "https://json.schemastore.org/prettierrc"
+		},
+		{
+			"fileMatch": [".stylelintrc", ".stylelintrc*.json"],
+			"url": "https://json.schemastore.org/stylelintrc"
+		},
+		{
+			"fileMatch": [".eslintrc", ".eslintrc*.json"],
+			"url": "https://json.schemastore.org/eslintrc"
+		},
+		{
+			"fileMatch": ["tsup.config.json"],
+			"url": "https://cdn.jsdelivr.net/npm/tsup/schema.json"
+		},
+		{
+			"fileMatch": ["lerna.json"],
+			"url": "https://json.schemastore.org/lerna"
+		},
+		{
+			"fileMatch": ["app.json"],
+			"url": "https://json.schemastore.org/expo-46.0.0.json"
+		},
+		{
+			"fileMatch": ["eas.json"],
+			"url": "https://raw.githubusercontent.com/expo/eas-cli/main/packages/eas-json/schema/eas.schema.json"
+		},
+		{
+			"fileMatch": ["turbo.json"],
+			"url": "https://turborepo.org/schema.json"
+		}
+	],
+	"search.exclude": {
+		"**/.cache": true,
+		"**/.coverage": true,
+		"**/.expo": true,
+		"**/.expo-shared": true,
+		"**/.git": true,
+		"**/.git*": true,
+		"**/.next": true,
+		"**/.nuxt": true,
+		"**/.out": true,
+		"**/.pnp.*": true,
+		"**/.turbo": true,
+		"**/.vercel": true,
+		"**/.vite": true,
+		"**/.vscode": true,
+		"**/.yarn": true,
+		"**/CODEOWNERS": true,
+		"**/__snapshots__": true,
+		"**/android": true,
+		"**/build": true,
+		"**/coverage": true,
+		"**/debug.log": true,
+		"**/dist": true,
+		"**/docs": true,
+		"**/expo-env.d.ts": true,
+		"**/expo-plugins": true,
+		"**/ios": true,
+		"**/logs": true,
+		"**/node_modules": true,
+		"**/out": true,
+		"**/pnpm-lock.yaml": true,
+		"**/temp": true,
+		"**/web-build": true,
+		"**/yarn.lock": true,
+		"builds": true,
+		"resources": true
+	},
+	"typescript.preferences.includePackageJsonAutoImports": "on",
+	"typescript.preferences.preferTypeOnlyAutoImports": true,
+	"typescript.suggest.autoImports": true
+}
