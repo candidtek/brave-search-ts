@@ -221,7 +221,7 @@ export interface WebSearchApiResponse extends SearchApiResponseBase {
 	/**
 	 * Web search results relevant to the query.
 	 */
-	web?: WebSearchComponentResponse;
+	web?: WebResults;
 
 	/**
 	 * Summary key to get summary results for the query.
@@ -522,7 +522,7 @@ export interface WebQA {
  * A model representing a collection of web search results
  * @see https://api-dashboard.search.brave.com/app/documentation/web-search/responses#Search
  */
-export interface WebSearchComponentResponse extends WebComponentResponse {
+export interface WebResults extends WebComponentResponse {
 	/**
 	 * A type identifying web search results. The value is always search.
 	 */
