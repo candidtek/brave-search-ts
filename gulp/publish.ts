@@ -83,7 +83,7 @@ function getNpmTag(version: string): string {
 /**
  * Bumps version, runs a task, and post-processes version if needed.
  */
-async function withBumpedVersionAsync(fn: (version: string, tag: string) => Promise<void>): Promise<void> {
+async function withBumpedVersionAsync(fn: (packageName: string, version: string, tag: string) => Promise<void>): Promise<void> {
 	const filePath = path.resolve('package.json');
 	const pkg = JSON.parse(await fs.promises.readFile(filePath, 'utf8')) as PackageJson;
 	const currentVersion: string = pkg.version!;
@@ -107,7 +107,7 @@ async function withBumpedVersionAsync(fn: (version: string, tag: string) => Prom
 	}
 
 	// Publish
-	await fn(publishVersion, npmTag);
+	await fn(pkg.name!, publishVersion, npmTag);
 
 	try {
 		// Always bump version post-publish
@@ -130,13 +130,21 @@ async function withBumpedVersionAsync(fn: (version: string, tag: string) => Prom
  */
 async function publishAsync(): Promise<void> {
 	try {
-		await withBumpedVersionAsync(async (version, tag) => {
+		await withBumpedVersionAsync(async (packageName, version, tag) => {
 			console.log(`🚀 Publishing version ${version} with tag "${tag}"`);
 			const { stdout, stderr } = await execAsync(`npm publish --access public --tag ${tag}`, {
 				cwd: destinationDirectory
 			});
 			if (stdout) console.log(stdout);
 			if (stderr) console.error(stderr);
+
+			// Add "edge" tag for the latest version
+			console.log(`🏷️  Adding "edge" tag to ${packageName}@${version}`);
+			const { stdout: tagOut, stderr: tagErr } = await execAsync(`npm dist-tag add ${packageName}@${version} edge`, {
+				cwd: destinationDirectory
+			});
+			if (tagOut) console.log(tagOut);
+			if (tagErr) console.error(tagErr);
 		});
 	} finally {
 		if (fs.existsSync(destinationDirectory)) {
