@@ -1,15 +1,15 @@
 import type { TaskFunction } from 'gulp';
 import type { PackageJson } from 'type-fest';
 
-import { globby } from 'globby';
-import { dest, series, src } from 'gulp';
-import gulpJsonEditor from 'gulp-json-editor';
 import { exec } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { pipeline } from 'node:stream/promises';
 import { promisify } from 'node:util';
+import { globby } from 'globby';
+import { dest, series, src } from 'gulp';
+import gulpJsonEditor from 'gulp-json-editor';
 import prettier from 'prettier';
 import { rimraf } from 'rimraf';
 import semver from 'semver';
@@ -106,8 +106,8 @@ async function withBumpedVersionAsync(fn: (version: string, tag: string) => Prom
 		throw new Error(`Could not determine next version from ${currentVersion}`);
 	}
 
-	// Publish 
-	//await fn(publishVersion, npmTag);
+	// Publish
+	await fn(publishVersion, npmTag);
 
 	try {
 		// Always bump version post-publish
@@ -130,8 +130,9 @@ async function withBumpedVersionAsync(fn: (version: string, tag: string) => Prom
  */
 async function publishAsync(): Promise<void> {
 	try {
-		await withBumpedVersionAsync(async () => {
-			const { stdout, stderr } = await execAsync('npm publish --access public --tag dev', {
+		await withBumpedVersionAsync(async (version, tag) => {
+			console.log(`🚀 Publishing version ${version} with tag "${tag}"`);
+			const { stdout, stderr } = await execAsync(`npm publish --access public --tag ${tag}`, {
 				cwd: destinationDirectory
 			});
 			if (stdout) console.log(stdout);
