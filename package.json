@@ -1,7 +1,7 @@
 {
 	"name": "brave-search-ts",
 	"description": "Typescript definitions for Brave Search API",
-	"version": "0.0.3-dev.3",
+	"version": "0.0.3-dev.4",
 	"license": "MIT",
 	"author": {
 		"name": "Ravi Kiran Katha"
