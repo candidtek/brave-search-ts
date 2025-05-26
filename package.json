@@ -1,7 +1,7 @@
 {
 	"name": "brave-search-ts",
 	"description": "Typescript definitions for Brave Search API",
-	"version": "0.0.3-dev.4",
+	"version": "0.0.3-dev.5",
 	"license": "MIT",
 	"author": {
 		"name": "Ravi Kiran Katha"
@@ -81,13 +81,18 @@
 		"t-publish-npm": "turbo publish-npm"
 	},
 	"devDependencies": {
+		"@ct/build-utils": "workspace:*",
 		"@ianvs/prettier-plugin-sort-imports": "^4.4.1",
+		"@types/glob-stream": "^8.0.3",
 		"@types/gulp": "^4.0.17",
 		"@types/gulp-json-editor": "^2.2.36",
 		"@types/node": "^22.15.21",
+		"@types/picomatch": "^4.0.0",
 		"@types/require-dir": "^1.0.4",
 		"@types/semver": "^7.7.0",
 		"@types/undertaker": "^1.2.11",
+		"@types/vinyl": "^2.0.12",
+		"@types/vinyl-fs": "^3.0.6",
 		"deepmerge-ts": "^7.1.5",
 		"find-up": "^7.0.0",
 		"globby": "^14.1.0",

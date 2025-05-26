@@ -5,68 +5,39 @@ import { exec } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { pipeline } from 'node:stream/promises';
 import { promisify } from 'node:util';
 import { globby } from 'globby';
 import { dest, series, src } from 'gulp';
 import gulpJsonEditor from 'gulp-json-editor';
-import prettier from 'prettier';
 import { rimraf } from 'rimraf';
 import semver from 'semver';
 
-const execAsync = promisify(exec);
-const destinationDirectory = path.resolve(os.tmpdir(), `brave-search-types-dist-${Date.now().toString()}`);
-console.log(`📦 Temporary directory: ${destinationDirectory}`);
+import { GulpUtils, MiscUtils } from '@ct/build-utils';
 
-/**
- * Converts a task function to a named task function.
- */
-function toNamed(fn: TaskFunction, name: string, description?: string): TaskFunction {
-	fn.displayName = name;
-	fn.description = description ?? '';
-	return fn;
-}
+const execAsync = promisify(exec);
+const distributionDirectory = path.resolve(os.tmpdir(), `brave-search-types-dist-${Date.now().toString()}`);
 
 /**
  * Copies files to a temporary directory for publishing
  */
 async function copyFilesAsync() {
-	await pipeline(src('builds/**/*', { allowEmpty: false, dot: true }), dest(path.resolve(destinationDirectory, 'builds')));
-	await pipeline(src(['LICENSE', 'CODEOWNERS', 'README.md'], { allowEmpty: false, dot: true }), dest(destinationDirectory));
-	await pipeline(
-		src('package.json', { allowEmpty: false, dot: true }),
-		gulpJsonEditor((json: any) => {
-			delete json.devDependencies;
-			delete json.scripts;
-			return json;
-		}),
-		dest(destinationDirectory)
+	await MiscUtils.toPromise(src('builds/**/*', { allowEmpty: false, dot: true }).pipe(dest(path.resolve(distributionDirectory, 'builds'))));
+	await MiscUtils.toPromise(src(['LICENSE', 'CODEOWNERS', 'README.md'], { allowEmpty: false, dot: true }).pipe(dest(distributionDirectory)));
+	await MiscUtils.toPromise(
+		src('package.json', { allowEmpty: false, dot: true })
+			.pipe(
+				gulpJsonEditor((json: any) => {
+					delete json.devDependencies;
+					delete json.scripts;
+					return json;
+				})
+			)
+			.pipe(dest(distributionDirectory))
 	);
-	const tsBuildInfoFiles = await globby('**/*.tsbuildinfo', { cwd: destinationDirectory, dot: true, expandDirectories: true, onlyFiles: true, objectMode: false, absolute: true });
+	const tsBuildInfoFiles = await globby('**/*.tsbuildinfo', { cwd: distributionDirectory, dot: true, expandDirectories: true, onlyFiles: true, objectMode: false, absolute: true });
 	for (const tsBuildInfoFile of tsBuildInfoFiles) {
-		await fs.promises.unlink(tsBuildInfoFile);
+		await fs.promises.rm(tsBuildInfoFile, { force: true, recursive: true });
 	}
-}
-
-/**
- * Prettifies the specified file
- * @param filePath The path to the file to prettify
- */
-async function prettifyAsync(filePath: string): Promise<void> {
-	// Read the file
-	const source = await fs.promises.readFile(filePath, 'utf8');
-
-	// Load config (returns `null` if none found)
-	const resolvedConfig = await prettier.resolveConfig(filePath);
-
-	// Format: if config is null, you must specify a parser
-	const formatted = await prettier.format(source, {
-		...resolvedConfig,
-		filepath: filePath
-	});
-
-	// 4. Write back
-	await fs.promises.writeFile(filePath, formatted, 'utf8');
 }
 
 /**
@@ -113,14 +84,14 @@ async function withBumpedVersionAsync(fn: (packageName: string, version: string,
 		// Always bump version post-publish
 		pkg.version = nextVersionAfterPublish;
 		await fs.promises.writeFile(filePath, JSON.stringify(pkg, null, '\t'));
-		await prettifyAsync(filePath);
+		await MiscUtils.prettifyAsync(filePath);
 		console.log(`📦 Published ${currentVersion} with tag "${npmTag}"`);
 		console.log(`🔁 Bumped to next version: ${nextVersionAfterPublish}`);
 	} catch (error) {
 		// Restore on error
 		pkg.version = currentVersion;
 		await fs.promises.writeFile(filePath, JSON.stringify(pkg, null, '\t'));
-		await prettifyAsync(filePath);
+		await MiscUtils.prettifyAsync(filePath);
 		throw error;
 	}
 }
@@ -133,7 +104,7 @@ async function publishAsync(): Promise<void> {
 		await withBumpedVersionAsync(async (packageName, version, tag) => {
 			console.log(`🚀 Publishing version ${version} with tag "${tag}"`);
 			const { stdout, stderr } = await execAsync(`npm publish --access public --tag ${tag}`, {
-				cwd: destinationDirectory
+				cwd: distributionDirectory
 			});
 			if (stdout) console.log(stdout);
 			if (stderr) console.error(stderr);
@@ -141,14 +112,14 @@ async function publishAsync(): Promise<void> {
 			// Add "edge" tag for the latest version
 			console.log(`🏷️  Adding "edge" tag to ${packageName}@${version}`);
 			const { stdout: tagOut, stderr: tagErr } = await execAsync(`npm dist-tag add ${packageName}@${version} edge`, {
-				cwd: destinationDirectory
+				cwd: distributionDirectory
 			});
 			if (tagOut) console.log(tagOut);
 			if (tagErr) console.error(tagErr);
 		});
 	} finally {
-		if (fs.existsSync(destinationDirectory)) {
-			await rimraf(destinationDirectory, { glob: false });
+		if (fs.existsSync(distributionDirectory)) {
+			await rimraf(distributionDirectory, { glob: false });
 		}
 	}
 }
@@ -156,4 +127,7 @@ async function publishAsync(): Promise<void> {
 /**
  * Export
  */
-export const publishToNpm: TaskFunction = series(toNamed(copyFilesAsync, 'copyFiles', 'Copy files to temp directory'), toNamed(publishAsync, 'publishPackage', 'Publish package to npm'));
+export const publishToNpm: TaskFunction = series(
+	GulpUtils.toNamed(copyFilesAsync, 'copyFiles', 'Copy files to temp directory'),
+	GulpUtils.toNamed(publishAsync, 'publishPackage', 'Publish package to npm')
+);
