@@ -26,6 +26,7 @@
 		"**/.DS_Store": true,
 		"**/.git": true,
 		"**/.hg": true,
+		"**/.idea": true,
 		"**/.svn": true,
 		"**/.turbo": true,
 		"**/Thumbs.db": true,
@@ -34,7 +35,8 @@
 		"**/eslint.configs.json": true,
 		"**/node_modules": true,
 		"**/pnpm-lock.yaml": true,
-		"builds": true
+		"builds": true,
+		"timestamps": true
 	},
 	"html.format.indentInnerHtml": true,
 	"html.format.maxPreserveNewLines": 2,
@@ -86,6 +88,7 @@
 		"**/.expo-shared": true,
 		"**/.git": true,
 		"**/.git*": true,
+		"**/.idea": true,
 		"**/.next": true,
 		"**/.nuxt": true,
 		"**/.out": true,
@@ -114,7 +117,8 @@
 		"**/web-build": true,
 		"**/yarn.lock": true,
 		"builds": true,
-		"resources": true
+		"resources": true,
+		"timestamps": true
 	},
 	"typescript.preferences.includePackageJsonAutoImports": "on",
 	"typescript.preferences.preferTypeOnlyAutoImports": true,
