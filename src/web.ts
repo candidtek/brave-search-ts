@@ -133,6 +133,12 @@ export interface WebSearchApiQueryParams extends SearchApiQueryParamsBase {
 	 * This is required for summarizer to be enabled.
 	 */
 	summary?: boolean;
+
+	/**
+	 * This parameter enables Rich Search API results callback in web search results.
+	 * Only available under Pro AI and Pro Data plans.
+	 */
+	enable_rich_callback?: boolean;
 }
 
 /**
