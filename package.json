@@ -13,7 +13,7 @@
 	"bugs": {
 		"url": "https://github.com/candidtek/brave-search-ts/issues"
 	},
-	"packageManager": "pnpm@10.11.0",
+	"packageManager": "pnpm@10.11.1",
 	"engines": {
 		"node": ">=20"
 	},
@@ -96,7 +96,7 @@
 		"deepmerge-ts": "^7.1.5",
 		"find-up": "^7.0.0",
 		"globby": "^14.1.0",
-		"gulp": "^5.0.0",
+		"gulp": "^5.0.1",
 		"gulp-json-editor": "^2.6.0",
 		"jsonc-parser": "^3.3.1",
 		"npm-check-updates": "^18.0.1",
