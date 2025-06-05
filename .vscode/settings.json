@@ -45,6 +45,10 @@
 	"javascript.suggest.autoImports": true,
 	"json.schemas": [
 		{
+			"fileMatch": ["package.json"],
+			"url": "https://json.schemastore.org/package.json"
+		},
+		{
 			"fileMatch": ["typedoc.json"],
 			"url": "https://typedoc.org/schema.json"
 		},
