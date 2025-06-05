@@ -71,6 +71,7 @@
 		"write-timestamp": "node -e \"const fs = require('node:fs'); const path = require('node:path'); const file = process.argv[1]; fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, Date.now().toString());\"",
 		"clean": "rimraf -g builds timestamps **/*.tsbuildinfo",
 		"format": "prettier --write \"**/*.{ts,cts,mts,js,cjs,mjs,json,jsonc,json5,tsx,ctsx,mtsx,jsx,cjsx,mjsx,d.ts,d.cts,d.mts,d.tsx,d.ctsx,d.mtsx,d.jsx,d.cjsx,d.mjsx,html,css,scss,sass,yml,yaml}\" && pnpm write-timestamp -- \"timestamps/format.txt\"",
+		"t-format": "turbo format",
 		"build:esm:raw": "tsc -p tsconfig.build.esm.json",
 		"build:cjs:raw": "tsc -p tsconfig.build.cjs.json",
 		"build:esm": "gulp buildEsm",
