@@ -3,17 +3,9 @@
 	"extends": ["//"],
 	// https://turborepo.com/docs/reference/configuration
 	"tasks": {
-		"format": {
-			"outputs": ["timestamps/format.txt"]
-		},
-		"build": {
-			"dependsOn": ["^build"],
-			"outputs": ["timestamps/build.txt"]
-		},
 		"publish-npm": {
-			"dependsOn": ["^publish", "build"],
-			"inputs": ["src/**/*.*", "package.json", "README.md", "CODEOWNERS", "LICENSE", "gulp/"],
-			"outputs": ["timestamps/publish-npm.txt"]
+			"dependsOn": ["build"],
+			"inputs": ["src/**/*.*", "package.json", "README.md", "CODEOWNERS", "LICENSE", "gulp/"]
 		}
 	}
 }
