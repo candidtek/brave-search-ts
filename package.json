@@ -87,7 +87,7 @@
 		"@types/glob-stream": "^8.0.3",
 		"@types/gulp": "^4.0.17",
 		"@types/gulp-json-editor": "^2.2.36",
-		"@types/node": "^22.15.29",
+		"@types/node": "^22.15.30",
 		"@types/picomatch": "^4.0.0",
 		"@types/require-dir": "^1.0.4",
 		"@types/semver": "^7.7.0",
